@@ -13,14 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/','TodosController@index');
 
 Route::group(['prefix' => 'todos' ],function(){
     // show all items route
     Route::get('/','TodosController@index')->name('allTodos');
-    
+
     // create & store route
     Route::get('/create','TodosController@create')->name('createNewTodo');
     Route::post('/create','TodosController@store')->name('storeNewTodo');
@@ -40,4 +42,3 @@ Route::group(['prefix' => 'todos' ],function(){
 });
 
 
- 

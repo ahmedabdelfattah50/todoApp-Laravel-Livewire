@@ -10,7 +10,8 @@ class TodosController extends Controller
     // ###### get all todos function ######
     public function index(){
         $todos = Todo::all();
-        return view('todos.index' , compact('todos'));
+        $completedFunctCount = count(Todo::where('completed', true)->get());
+        return view('todos.index' , compact('todos', 'completedFunctCount'));
     }
 
     // ###### get one todo function ######
@@ -31,15 +32,15 @@ class TodosController extends Controller
             'todoTitle' => 'required',
             'todoDescription' => 'required'
         ]);
-        
+
         $todo = new Todo;   // new object from the Model Todo
         // Assign data of the form
         $todo -> title = $request -> todoTitle;
-        $todo -> description = $request -> todoDescription; 
+        $todo -> description = $request -> todoDescription;
         $todo -> save();        // save the todo in the database
 
         // success message
-        $request->session()->flash('success','Todo has been created successfuly');
+        $request->session()->flash('warning',"Todo '$todo->title' has been created successfuly");
 
         return redirect('/todos');
     }
@@ -57,7 +58,7 @@ class TodosController extends Controller
         ]);
 
         $todo -> title = $request -> get('todoTitle');
-        $todo -> description = $request ->get('todoDescription'); 
+        $todo -> description = $request ->get('todoDescription');
         $todo -> save();        // save the todo in the database after update
         return redirect('todos/' . $todo->id);
     }
@@ -67,7 +68,7 @@ class TodosController extends Controller
         $todo->delete();
 
         // success message
-        session()->flash('success','Todo has been deleted successfuly');
+        session()->flash('danger',"Todo '$todo->title' has been deleted successfuly");
 
         return redirect('/todos');
     }
@@ -78,7 +79,7 @@ class TodosController extends Controller
         $todo->save();
 
         // success message
-        session()->flash('success','Todo has been completed successfuly');
+        session()->flash('success',"Todo '$todo->title' has been completed successfuly");
 
         return redirect('/todos');
     }

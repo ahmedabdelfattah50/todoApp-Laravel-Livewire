@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         <a href="{{route('createNewTodo')}}" class="btn btn-info mb-3">Create New Todo <i class="fas fa-plus"></i></a>
-                        
+
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{session()->get('success')}}
@@ -19,11 +19,35 @@
                                 </button>
                             </div>
                         @endif
-
+                        @if (session()->has('danger'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{session()->get('danger')}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                        @if (session()->has('warning'))
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                {{session()->get('warning')}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                        <div>
+                            <p class="badge badge-warning">Total todos : {{ count($todos) }}</p>
+                            <p class="badge badge-success">completed : {{ $completedFunctCount }}</p>
+                            <p class="badge badge-danger">uncompleted : {{ count($todos) - $completedFunctCount }}</p>
+                        </div>
                         <ul class="list-group">
                             @forelse ($todos as $todo)
                                 <li class="list-group-item text-muted">
-                                    {{ $todo->title }}
+                                    @if($todo->completed)
+                                        <del>{{ $todo->title }}</del>
+                                    @else
+                                        {{ $todo->title }}
+                                    @endif
                                     <span class="float-right">
                                         <a href="{{route('deleteTodo',$todo->id)}}" style="color: rgb(216, 11, 11)">
                                             <i class="far fa-trash-alt"></i>
@@ -48,7 +72,7 @@
                                     @endif
                                 </li>
                                 @empty
-                                    <p class="alert alert-danger">No Todos</p>   
+                                    <p class="alert alert-danger">No Todos</p>
                             @endforelse
                         </ul>
                     </div>
