@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTodosTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    // ###### Run the migrations. ######
     public function up()
     {
         Schema::create('todos', function (Blueprint $table) {
@@ -18,17 +14,19 @@ class CreateTodosTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->boolean('completed');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    // ###### Reverse the migrations. ######
     public function down()
     {
         Schema::dropIfExists('todos');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class);
     }
 }

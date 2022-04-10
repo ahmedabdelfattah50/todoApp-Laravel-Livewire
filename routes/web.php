@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,32 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Auth::routes();
 
-Route::get('/','TodosController@index');
-
-Route::group(['prefix' => 'todos' ],function(){
-    // show all items route
-    Route::get('/','TodosController@index')->name('allTodos');
-
-    // create & store route
-    Route::get('/create','TodosController@create')->name('createNewTodo');
-    Route::post('/create','TodosController@store')->name('storeNewTodo');
-
-    // edit & update route
-    Route::get('/edit/{todo}','TodosController@edit')->name('editTodo');
-    Route::post('/{todo}','TodosController@update')->name('updateTodo');
-
-    // delete one item route
-    Route::get('/delete/{todo}','TodosController@destroy')->name('deleteTodo');
-
-    // show one item route
-    Route::get('/{todo}','TodosController@show')->name('todoItem');
-
-     // show complete todo route
-     Route::get('/complete/{todo}','TodosController@complete')->name('todoComplete');
+Route::get('/', function (){
+    return view('todos.index');
 });
-
-
