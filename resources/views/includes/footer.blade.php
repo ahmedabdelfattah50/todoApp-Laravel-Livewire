@@ -6,36 +6,39 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         @livewireScripts
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-{{--        @notifyJs--}}
-{{--        <x:notify-messages />--}}
 
         @yield('scripts')
         <script>
             window.addEventListener('openModalCreate', event => {
                 $('#modalFormCreate').modal('show');
             });
+
             window.addEventListener('closeModalCreate', event => {
                 $('#modalFormCreate').modal('hide');
             });
             window.addEventListener('openModalEdit', event => {
                 $('#modalFormEdit').modal('show');
             });
+
             window.addEventListener('closeModalEdit', event => {
                 $('#modalFormEdit').modal('hide');
             });
+
             window.addEventListener('openModal', event => {
                 $('#modalForm').modal('show');
             });
+
             window.addEventListener('closeModal', event => {
                 $('#modalForm').modal('hide');
             });
+
             window.addEventListener('openDeleteModal', event => {
                 $('#modalDeleteTodo').modal('show');
             });
+
             window.addEventListener('closeDeleteModal', event => {
                 $('#modalDeleteTodo').modal('hide');
             });
-
 
             window.addEventListener('alert', event => {
                 toastr[event.detail.type](event.detail.message,
